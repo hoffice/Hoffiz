@@ -1,0 +1,63 @@
+<div class="row">
+
+<div class="col-sm-9">
+	<%= image_tag('slide-1.jpeg', height:'400', width: '600') %>
+
+<h1><%= @event.title %></h1>
+<p><%= @event.description %></p>
+
+<h1>About The Space </h1>
+
+<p><%= @event.space.description %></p>
+
+
+</div>
+
+<div class="col-sm-3">
+	
+	<button class="btn btn-lg btn-success">Request Invite</button>
+	
+	<div class="details-box">
+		<h3>Details</h3>
+		<div class="details-item">
+		<h4>Host: </h4>
+		<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <img class="media-object" src="http://placehold.it/64x64" alt="...">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">John Doe</h4>
+    <a href=""><i class="fa fa-2x fa-linkedin"></i></a>
+    <a href=""><i class="fa fa-2x fa-twitter"></i></a>
+    <a href=""><i class="fa fa-2x fa-facebook"></i></a>
+  </div>
+</div>
+		</div>
+		<div class="details-item">
+		<h4>Location near</h4>
+		<p>Yonge / Bloor </p>
+		<h4>Available Seats:</h4>
+		<p><%= @event.seats %></p>
+		</div>
+		<div class="details-item">
+		<h4>Date: </h4>
+		<p>Sat Feb 16 2015</p>
+		<h4>Time: </h4>
+		<p><%= "#{@event.start_time.strftime("%-I%p")} - #{@event.end_time.strftime("%-I%p")}" %></p>
+		</div>
+		<div class="details-item">
+			<i class="fa fa-2x fa-wifi"></i> <p>Available</p>
+			<i class="fa fa-2x fa-coffee"></i> <p>Available</p>
+		</div>
+	</div>
+
+</div>
+
+
+</div>
+
+
+<%#= link_to 'Edit', edit_space_path(@space) %>
+<%#= link_to 'Back', spaces_path %>

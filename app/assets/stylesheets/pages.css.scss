@@ -1,0 +1,92 @@
+// Place all the styles related to the Pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body, html {
+	width:100%;
+}
+body {
+	border-top: 5px solid #4DAF7C;
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Dosis', sans-serif;
+}
+
+p, label, a, input {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-brand {
+	font-family: 'Ruda', sans-serif;
+	font-weight: 900;
+	font-size: 20px;
+}
+
+.thumbnail-list {
+	list-style: none;
+}
+
+.space-feats {
+	display: block;
+	padding: 5px 10px;
+	background: #4DAF7C;
+	color: #fff;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	width:100%;
+}
+
+.more-listings {
+	margin: 0 auto;
+	display: block;
+	width: 150px;
+}
+
+.btn-success {
+	background-color: #4DAF7C;
+
+	&:hover, &:active, &:focus {
+		background-color: #449C6F;
+	}
+}
+
+.features {
+	margin: 40px 0;
+
+	img {
+	width:100%;
+}
+}
+
+.details-item {
+	border-top: 1px #999 solid;
+	padding: 5px;
+}
+
+.fa-twitter {
+	color: #55acee;
+}
+
+.fa-facebook {
+	color: #3b5998;
+}
+
+
+.fa-linkedin {
+	color: #0976b4;
+}
+
+#footer {
+	background: #95A5A6;
+	color: #000;
+	margin-top: 75px;
+	bottom: 0;
+	width: 100%;
+	padding: 10px;
+
+	a {
+		color: #fff;
+	}
+}

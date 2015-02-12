@@ -1,0 +1,26 @@
+<h1 class="text-center"><%= @city.capitalize %> Hoffizes</h1>
+
+  <div class="col-sm-12">
+            
+             <div class="row">
+
+              <% @events.each do |event| %>
+
+                <div class="col-sm-3 features">
+                    <a href="<%= event_path(event) %>"><img src="http://placehold.it/250x250" class=""></a>
+                   <div class="space-feats">
+                    <span>Seats: <%= event.seats %></span>
+                    </div>
+
+                    <a href="<%= event_path(event) %>"><h4 class=""><%= event.title %></h4></a>
+                  
+                </div>
+
+
+                <% end %>
+              </div>
+
+    </div>
+
+
+<%#= link_to 'New Space', new_space_path %>

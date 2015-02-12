@@ -1,0 +1,43 @@
+<div class="jumbotron">
+        <h1>Why work alone?</h1>
+        <p class="lead">Host a co-working session from home. Meet new people.</p>
+        <a data-toggle="modal" href="#myModal2" class="btn btn-lg btn-success" role="button">Be a host</a>
+        <a href="#listings" class="btn btn-lg btn-info" role="button">Find a host</a>
+      </div>
+
+	<h2 id="listings" class="text-center">It's happening in Toronto</h2>
+  <a data-toggle="modal" href="#myModal2" ><h4 class="text-center">Add your city? <i class="fa fa-smile-o"></i></h4></a>
+
+  <div class="row">
+	<div class="col-sm-12">
+      <div class="col-sm-4 features">
+                    <a href=""><img src="http://placehold.it/450x300" class=""></a>
+                   <div class="space-feats">
+                    <span>Seats: </span>
+                    </div>
+
+                    <a href=""><h4 class="">dsffddfgfd</h4></a>
+                  
+                </div>
+
+            	<% @events.each do |event| %>
+
+                <div class="col-sm-4 features">
+                    <a href="<%= event_path(event) %>"><img src="http://placehold.it/450x300" class=""></a>
+                   <div class="space-feats">
+                    <span>Seats: <%= event.seats %></span>
+                    </div>
+
+                    <a href="<%= event_path(event) %>"><h4 class=""><%= event.title %></h4></a>
+                  
+                </div>
+
+                <% end %>
+              
+    </div>
+</div>
+<div class="row">
+
+    <a href="<%= city_path('toronto') %>" class="btn btn-info more-listings">View More Listings</a>
+   </div>
+
