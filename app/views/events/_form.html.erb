@@ -1,0 +1,106 @@
+<div class="row">
+            <%= form_for(@event, :html => { :multipart => true }) do |f| %>
+              <% if @event.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@event.errors.count, "error") %> prohibited this space from being saved:</h2>
+
+                <ul>
+                  <% @event.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+                </div>
+                <% end %>
+
+                <div class="col-sm-7">
+                <div class="field">
+                  <%= f.label :title %><br />
+                  <%= f.text_field :title, autofocus: true %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :description %><br />
+                  <%= f.text_area :description, size: "40x6" %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :city %><br />
+                  <%= f.text_field :city %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Neighbourhood / Nearest-intersection" %><br />
+                  <%= f.text_field :near %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Date" %><br />
+                  <input type="text" name="event[event_date]" data-provide='datepicker' >
+                </div>
+
+              </div>
+
+              <div class="col-sm-4 col-sm-offset-1">
+                 <div class="field">
+                  <%= f.label "Start Time" %><br />
+                <%= f.select :start_time, [ 
+     ["6am", 6], ["7am", 7], ["8am", 8], ["9am", 9], ["10am", 10], ["11am", 11], ["12pm", 12], ["1pm", 13], ["2pm", 14], ["3pm", 15], ["4pm", 16], ["5pm", 17], ["6pm", 18], ["7pm", 19], ["8pm", 20], ["9pm", 21], ["10pm", 22], ["11pm", 23], ["12am", 24], ["1am", 1], ["2am", 2], ["3am", 3], ["4am",4 ], ["5am", 5]
+], class:''%>
+</div>
+
+<div class="field">
+                  <%= f.label "End Time" %><br />
+                <%= f.select :end_time, [ 
+     ["6am", 6], ["7am", 7], ["8am", 8], ["9am", 9], ["10am", 10], ["11am", 11], ["12pm", 12], ["1pm", 13], ["2pm", 14], ["3pm", 15], ["4pm", 16], ["5pm", 17], ["6pm", 18], ["7pm", 19], ["8pm", 20], ["9pm", 21], ["10pm", 22], ["11pm", 23], ["12am", 24], ["1am", 1], ["2am", 2], ["3am", 3], ["4am",4 ], ["5am", 5]
+], class:''%>
+</div>
+
+                <div class="field">
+                  <%= f.label "Select Space Type" %><br />
+                  <%= f.select(:space_type) do %>
+                   <% ['Apartment', 'House'].each do |c| -%>
+                   <%= content_tag(:option, c, value: c) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Select Seats Available" %><br />
+                  <%= f.select(:seats) do %>
+                   <% (1..10).each do |c| -%>
+                   <%= content_tag(:option, c, value: c) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Wifi Availability" %><br />
+                  <%= f.select(:wifi) do %>
+                   <% [['Yes', 1], ['No', 0] ].each do |c| -%>
+                   <%= content_tag(:option, c.first, value: c.last) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Got Coffee? :) " %><br />
+                  <%= f.select(:coffee) do %>
+                   <% [['Yes', 1], ['No', 0] ].each do |c| -%>
+                   <%= content_tag(:option, c.first, value: c.last) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                <%= f.label "Add Header Image" %><br />
+                <%= f.file_field :header_img %>
+                </div>
+              </div>
+
+        </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <% end %>

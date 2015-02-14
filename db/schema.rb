@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212120446) do
+ActiveRecord::Schema.define(version: 20150214035925) do
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -24,11 +24,10 @@ ActiveRecord::Schema.define(version: 20150212120446) do
   add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.integer  "space_id",                limit: 4
     t.date     "event_date"
     t.time     "start_time"
     t.time     "end_time"
-    t.boolean  "live",                    limit: 1
+    t.boolean  "live",                    limit: 1,     default: true
     t.boolean  "coffee",                  limit: 1
     t.boolean  "featured",                limit: 1
     t.integer  "seats",                   limit: 4
@@ -39,9 +38,15 @@ ActiveRecord::Schema.define(version: 20150212120446) do
     t.integer  "header_img_file_size",    limit: 4
     t.datetime "header_img_updated_at"
     t.string   "slug",                    limit: 255
+    t.integer  "user_id",                 limit: 4
+    t.string   "city",                    limit: 255
+    t.string   "country",                 limit: 255
+    t.string   "space_type",              limit: 255
+    t.boolean  "wifi",                    limit: 1
+    t.string   "near",                    limit: 255
   end
 
-  add_index "events", ["space_id"], name: "index_events_on_space_id", using: :btree
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "spaces", force: :cascade do |t|
     t.datetime "created_at",                null: false
@@ -70,6 +75,11 @@ ActiveRecord::Schema.define(version: 20150212120446) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.string   "firstname",              limit: 255
+    t.string   "lastname",               limit: 255
+    t.string   "avatar",                 limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -77,6 +87,6 @@ ActiveRecord::Schema.define(version: 20150212120446) do
 
   add_foreign_key "bookings", "events"
   add_foreign_key "bookings", "users"
-  add_foreign_key "events", "spaces"
+  add_foreign_key "events", "users"
   add_foreign_key "spaces", "users"
 end

@@ -1,22 +1,30 @@
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=504323752911178";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="row">
 
 <div class="col-sm-9">
-	<%= image_tag('slide-1.jpeg', height:'400', width: '600') %>
+<%= image_tag @event.header_img.url  %>
 
 <h1><%= @event.title %></h1>
 <p><%= @event.description %></p>
-
-<h1>About The Space </h1>
-
-<p><%= @event.space.description %></p>
-
-
 </div>
 
 <div class="col-sm-3">
 	
-	<button class="btn btn-lg btn-success">Request Invite</button>
-	
+
+	<% if !@event.live %>
+	<h1>Post is offline</h1>
+	<% else %>
+		<% if !current_user || (current_user && current_user.id != @event.user_id) %>
+		<%= link_to("Request", "#{bookings_path}?booking[event_id]=#{@event.id}", method: :post, class: "btn btn-primary") %>
+		<% end %>
 	<div class="details-box">
 		<h3>Details</h3>
 		<div class="details-item">
@@ -37,23 +45,31 @@
 		</div>
 		<div class="details-item">
 		<h4>Location near</h4>
-		<p>Yonge / Bloor </p>
+		<p><%= @event.near %> </p>
 		<h4>Available Seats:</h4>
 		<p><%= @event.seats %></p>
 		</div>
 		<div class="details-item">
 		<h4>Date: </h4>
-		<p>Sat Feb 16 2015</p>
+		<p><%= (@event.event_date).strftime("%a, %d %b") %></p>
 		<h4>Time: </h4>
 		<p><%= "#{@event.start_time.strftime("%-I%p")} - #{@event.end_time.strftime("%-I%p")}" %></p>
 		</div>
 		<div class="details-item">
-			<i class="fa fa-2x fa-wifi"></i> <p>Available</p>
+			<% if @event.wifi %>
+				<i class="fa fa-2x fa-wifi"></i> <p>Available</p>
+			<% end %>
+			<% if @event.coffee %>
 			<i class="fa fa-2x fa-coffee"></i> <p>Available</p>
+			<% end %>
 		</div>
 	</div>
 
+	<% end %>
+
 </div>
+
+<div class="fb-comments" data-href="hjkhkhkjhkfgd.com " data-width="470" data-num-posts="2"></div>
 
 
 </div>

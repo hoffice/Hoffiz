@@ -8,8 +8,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '672607736183436',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 <%= render "shared/header" %>
+<div class="container">
 <p id="notice"><%= notice %></p>
 <%= yield %>
 </div>
@@ -59,6 +76,9 @@
           <h4 class="modal-title">Sign Up</h4>
         </div>
         <div class="modal-body">
+<div class="row">
+<div class="col-sm-12">
+<div class="col-sm-6">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -79,6 +99,22 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
+</div>
+
+<div class="col-sm-6">
+
+<a class="btn btn-block btn-social btn-facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
+  <i class="fa fa-facebok"></i>
+  Sign in with Facebook
+</a>
+
+  </div>
+
+</div>
+
+</div>
+
+
 
   <%= render "devise/shared/links" %>
         </div>

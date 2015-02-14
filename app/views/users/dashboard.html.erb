@@ -1,9 +1,6 @@
 
 <div class="container">
-
-<div class="col-sm-12">
-
-<h1 style="margin: 30px 0;">Hello Asha,</h1>
+<h1 style="margin: 30px 0;">Hello A,</h1>
 <div role="tabpanel">
 
   <!-- Nav tabs -->
@@ -18,10 +15,10 @@
 
     	<div class="row">
     		<div class="col-sm-12">
-    	<button class="btn btn-primary" style="margin: 30px 0;">Create Post</button>
-    </div>
-
+    	     <button data-toggle="modal" href="#myModal3" class="btn btn-primary" style="margin: 30px 0;">Create a post</button>
+        </div>
     	</div>
+
     	<table class="table table-hover">
       <thead>
         <tr>
@@ -32,23 +29,30 @@
       </thead>
       <tbody>
       <tr>
-      <td>Alice</td>
-      <td>Arten</td>
+
+      <% current_user.events.each do |event| %>  
+      <td><%= event.title %></td>
+      <td><%=  event.event_date %></td>
       <td>
-        <a href="#contacts/1" class="btn btn-small">
+        <a href="<%= event_path(event) %>" class="btn btn-small">
           <i class="fa fa-eye"></i>
           Show
         </a>
-        <a href="#contacts/1/edit" class="btn btn-small">
+        <a href="<%= edit_event_path(event) %>" class="btn btn-small">
           <i class="fa fa-pencil"></i>
           Edit
         </a>
-        <button class="btn btn-danger btn-small">
-          <i class="fa fa-remove"></i>
-          Delete
-        </button>
+
+        <% if event.live %>
+          <%= link_to("Pause", "#{event_path(event)}?event[live]=false", method: :patch, class: "btn btn-danger btn-small") %>
+        <% else %>
+           <%= link_to("Activate", "#{event_path(event)}?event[live]=true", method: :patch, class: "btn btn-primary btn-small") %>
+        <% end %> 
       </td>
-    </tr><tr>
+    </tr>
+    <% end %>
+
+
       </tbody>
     </table>
 
@@ -59,4 +63,129 @@
 </div>
 </div>
 
+
+<div class="modal fade" id="myModal3">
+  <div class="modal-dialog">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Create a post</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <%= form_for(@event, :html => { :multipart => true }) do |f| %>
+              <% if @event.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@event.errors.count, "error") %> prohibited this space from being saved:</h2>
+
+                <ul>
+                  <% @event.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+                </div>
+                <% end %>
+
+                <div class="col-sm-7">
+                <div class="field">
+                  <%= f.label :title %><br />
+                  <%= f.text_field :title, autofocus: true %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :description %><br />
+                  <%= f.text_area :description, size: "40x6" %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :city %><br />
+                  <%= f.text_field :city %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Neighbourhood / Nearest-intersection" %><br />
+                  <%= f.text_field :near %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Date" %><br />
+                  <input type="text" name="event[event_date]" data-provide='datepicker' >
+                </div>
+
+              </div>
+
+              <div class="col-sm-4 col-sm-offset-1">
+                 <div class="field">
+                  <%= f.label "Start Time" %><br />
+                <%= f.select :start_time, [ 
+     ["6am", 6], ["7am", 7], ["8am", 8], ["9am", 9], ["10am", 10], ["11am", 11], ["12pm", 12], ["1pm", 13], ["2pm", 14], ["3pm", 15], ["4pm", 16], ["5pm", 17], ["6pm", 18], ["7pm", 19], ["8pm", 20], ["9pm", 21], ["10pm", 22], ["11pm", 23], ["12am", 24], ["1am", 1], ["2am", 2], ["3am", 3], ["4am",4 ], ["5am", 5]
+], class:''%>
 </div>
+
+<div class="field">
+                  <%= f.label "End Time" %><br />
+                <%= f.select :end_time, [ 
+     ["6am", 6], ["7am", 7], ["8am", 8], ["9am", 9], ["10am", 10], ["11am", 11], ["12pm", 12], ["1pm", 13], ["2pm", 14], ["3pm", 15], ["4pm", 16], ["5pm", 17], ["6pm", 18], ["7pm", 19], ["8pm", 20], ["9pm", 21], ["10pm", 22], ["11pm", 23], ["12am", 24], ["1am", 1], ["2am", 2], ["3am", 3], ["4am",4 ], ["5am", 5]
+], class:''%>
+</div>
+
+                <div class="field">
+                  <%= f.label "Select Space Type" %><br />
+                  <%= f.select(:space_type) do %>
+                   <% ['Apartment', 'House'].each do |c| -%>
+                   <%= content_tag(:option, c, value: c) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Select Seats Available" %><br />
+                  <%= f.select(:seats) do %>
+                   <% (1..10).each do |c| -%>
+                   <%= content_tag(:option, c, value: c) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Wifi Availability" %><br />
+                  <%= f.select(:wifi) do %>
+                   <% [['Yes', 1], ['No', 0] ].each do |c| -%>
+                   <%= content_tag(:option, c.first, value: c.last) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                  <%= f.label "Got Coffee? :) " %><br />
+                  <%= f.select(:coffee) do %>
+                   <% [['Yes', 1], ['No', 0] ].each do |c| -%>
+                   <%= content_tag(:option, c.first, value: c.last) %>
+                   <% end %>
+                   <% end %>
+                </div>
+
+                <div class="field">
+                <%= f.label "Add Header Image" %><br />
+                <%= f.file_field :header_img %>
+                </div>
+              </div>
+
+        </div>
+      </div>
+        
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn">Close</a>
+          <%= f.submit "Create" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+

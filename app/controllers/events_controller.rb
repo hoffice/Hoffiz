@@ -18,11 +18,12 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
+    @event.event_date = Date.strptime(event_params[:event_date], "%m/%d/%Y")
     @event.user_id = current_user.id
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to dash_path, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -31,12 +32,12 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1
-  # PATCH/PUT /events/1.json
+  # PATCH/PUT /e/1
+  # PATCH/PUT /e/1.json
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to dash_path, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }
@@ -57,7 +58,12 @@ class EventsController < ApplicationController
 
   def city
     @city = params[:city]
-    @events = Event.joins(:space).where("city  = ? AND live = ?", params[:city], true)
+    @events = Event.where("city  = ? AND live = ?", params[:city], true).page params[:page]
+
+    if @events.count == 0
+      redirect_to root_path
+    end
+
   end
 
   private
@@ -71,6 +77,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params[:event]
+      params.require(:event).permit(:title, :description, :event_date, :start_time, :end_time, :space_type, :near, :city, :coffee, :wifi, :header_img, :seats, :live )
     end
 end

@@ -27,6 +27,10 @@ gem 'mysql2'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem "font-awesome-rails"
 gem "paperclip", "~> 4.2"
+gem 'bootstrap-datepicker-rails'
+gem 'kaminari'
+gem 'omniauth-facebook'
+gem 'bootstrap-social-rails' 
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

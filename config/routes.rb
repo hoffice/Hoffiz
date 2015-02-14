@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { 
-    sessions: "users/sessions" 
+    sessions: "users/sessions", 
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  resources :users
+  resources :events, :only => [:create]
   get 'e/:id' => 'events#show', as: :event
-  resources :events, :except => [:show]
+  get 'e/:id/edit' => 'events#edit', as: :edit_event
+  patch 'e/:id' => 'events#update'
+  put 'e/:id' => 'events#update'
+  
+  resources :bookings, :only => [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,7 +22,7 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'users#dashboard', as: :dash
 
-  get ':city' => 'events#city', as: :city
+  get 'c/:city' => 'events#city', as: :city
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

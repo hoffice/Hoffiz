@@ -1,7 +1,12 @@
 <div class="jumbotron">
         <h1>Why work alone?</h1>
         <p class="lead">Host a co-working session from home. Meet new people.</p>
-        <a data-toggle="modal" href="#myModal2" class="btn btn-lg btn-success" role="button">Be a host</a>
+        
+        <% if current_user %>
+        <a data-toggle="modal" href="<%= dash_path %>" class="btn btn-lg btn-success" role="button">Become a host</a>
+        <% else %>
+        <a data-toggle="modal" href="#myModal2" class="btn btn-lg btn-success" role="button">Become a host</a>
+        <% end %>
         <a href="#listings" class="btn btn-lg btn-info" role="button">Find a host</a>
       </div>
 
@@ -10,20 +15,12 @@
 
   <div class="row">
 	<div class="col-sm-12">
-      <div class="col-sm-4 features">
-                    <a href=""><img src="http://placehold.it/450x300" class=""></a>
-                   <div class="space-feats">
-                    <span>Seats: </span>
-                    </div>
-
-                    <a href=""><h4 class="">dsffddfgfd</h4></a>
-                  
-                </div>
 
             	<% @events.each do |event| %>
 
                 <div class="col-sm-4 features">
-                    <a href="<%= event_path(event) %>"><img src="http://placehold.it/450x300" class=""></a>
+                    <a href="<%= event_path(event) %>">
+                      <%= image_tag event.header_img.url(:thumb) %></a>
                    <div class="space-feats">
                     <span>Seats: <%= event.seats %></span>
                     </div>
