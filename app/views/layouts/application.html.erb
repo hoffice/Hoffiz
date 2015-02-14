@@ -31,13 +31,27 @@
 <%= yield %>
 </div>
 <div class="modal" id="myModal">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">Login</h4>
+          <h4 class="modal-title">Welcome back!</h4>
         </div>
         <div class="modal-body">
+
+<div class="row">
+  <div class="col-sm-12">
+
+<a class="btn btn-block btn-social btn-facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
+  <i class="fa fa-facebok"></i>
+  Login with Facebook
+</a>
+
+<div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+
           
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -56,6 +70,10 @@
       <%= f.label :remember_me %>
     </div>
 
+  </div>
+
+</div>
+
     <%= render "devise/shared/links" %>
   <% end -%>
         </div>
@@ -69,16 +87,25 @@
 </div>
 
 <div class="modal" id="myModal2">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">Sign Up</h4>
+          <h4 class="modal-title">Register</h4>
         </div>
         <div class="modal-body">
 <div class="row">
 <div class="col-sm-12">
-<div class="col-sm-6">
+<a class="btn btn-block btn-social btn-facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
+  <i class="fa fa-facebok"></i>
+  Sign-up with Facebook
+</a>
+
+<div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -99,24 +126,11 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-</div>
 
-<div class="col-sm-6">
-
-<a class="btn btn-block btn-social btn-facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
-  <i class="fa fa-facebok"></i>
-  Sign in with Facebook
-</a>
-
-  </div>
 
 </div>
 
 </div>
-
-
-
-  <%= render "devise/shared/links" %>
         </div>
         <div class="modal-footer">
           <a href="#" data-dismiss="modal" class="btn">Close</a>

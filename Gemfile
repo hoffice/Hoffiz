@@ -31,6 +31,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'kaminari'
 gem 'omniauth-facebook'
 gem 'bootstrap-social-rails' 
+gem "mailboxer"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

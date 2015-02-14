@@ -32,11 +32,11 @@
 		<div class="media">
   <div class="media-left">
     <a href="#">
-      <img class="media-object" src="http://placehold.it/64x64" alt="...">
+     <%= image_tag @event.user.avatar, class: "media-object"  %>
     </a>
   </div>
   <div class="media-body">
-    <h4 class="media-heading">John Doe</h4>
+    <h4 class="media-heading"><%= @event.user.firstname %></h4>
     <a href=""><i class="fa fa-2x fa-linkedin"></i></a>
     <a href=""><i class="fa fa-2x fa-twitter"></i></a>
     <a href=""><i class="fa fa-2x fa-facebook"></i></a>

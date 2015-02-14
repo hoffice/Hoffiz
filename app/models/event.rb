@@ -10,6 +10,8 @@ class Event < ActiveRecord::Base
 
 	validates_attachment_content_type :header_img, :content_type => /\Aimage\/.*\Z/
 
+	validates_with AttachmentSizeValidator, :attributes => :avatar, :less_than => 2.megabytes
+
 	def assign_slug
       self.slug = title.parameterize
   	end

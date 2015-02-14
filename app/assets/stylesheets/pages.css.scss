@@ -22,10 +22,21 @@ p, label, a, input {
 	padding: 5px 0;
 }
 
+.nv-hoffiz {
+	background-color: #FFF;
+	border-radius: 0;	
+}
+
 .navbar-brand {
 	font-family: 'Ruda', sans-serif;
 	font-weight: 900;
 	font-size: 20px;
+	padding: 15px 5px;padding: 15px 5px;
+}
+
+.nv-hoffiz .navbar-nav>li>a {
+	font-size: 15px;
+	letter-spacing: 1px;
 }
 
 .thumbnail-list {
@@ -94,3 +105,37 @@ p, label, a, input {
 		color: #fff;
 	}
 }
+
+.alert-notice {
+  @extend .alert-success;
+}
+ 
+.alert-alert {
+  @extend .alert-warning;
+}
+
+.login-or {
+    position: relative;
+    font-size: 18px;
+    color: #aaa;
+    margin-top: 10px;
+            margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    margin-left: -25px;
+    background-color: #fff;
+    width: 50px;
+    text-align: center;
+  }
+  .hr-or {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
