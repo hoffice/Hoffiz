@@ -1,13 +1,14 @@
 default: &default
-  adapter: mysql2
-  username: root
+  adapter: postgresql
+  encoding: unicode
   pool: 5
   timeout: 5000
-  host: localhost
 
 development:
   <<: *default
   database: hoff_dev
+  username: h_hassanca
+  password: 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -15,9 +16,7 @@ development:
 test:
   <<: *default
   database: hoff_test
-
-
+ 
 production:
   <<: *default
-  password: Waterm3lon12
   database: hoff_prod

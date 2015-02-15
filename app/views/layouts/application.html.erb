@@ -27,10 +27,19 @@
 </script>
 <%= render "shared/header" %>
 <div class="container">
-<p id="notice"><%= notice %></p>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <a href="#" data-dismiss="alert" class="close">×</a>
+      <ul>
+        <li>
+          <%= value %>
+        </li>
+      </ul>
+  </div>
+<% end %>
 <%= yield %>
 </div>
-<div class="modal" id="myModal">
+<div class="modal" id="signin">
 	<div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -86,7 +95,7 @@
     </div>
 </div>
 
-<div class="modal" id="myModal2">
+<div class="modal" id="signup">
 	<div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -110,8 +119,13 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :firstname %><br />
+    <%= f.text_field :firstname, autofocus: true %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email  %>
   </div>
 
   <div class="field">

@@ -1,0 +1,14 @@
+<h1>Your Conversations</h1>
+
+<% if @conversations.count > 0 %>
+<ul class="list-group">
+  <%= render partial: 'conversations/conversation', collection: @conversations %>
+</ul>
+
+<%= paginate @conversations %>
+
+<% else %>
+
+<h3>No Replies Yet :(</h3>
+
+<% end %>

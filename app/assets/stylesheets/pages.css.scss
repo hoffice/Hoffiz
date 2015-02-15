@@ -2,12 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body, html {
-	width:100%;
+html {
+  position: relative;
+  min-height: 100%;
 }
 body {
 	border-top: 5px solid #4DAF7C;
-	margin: 0;
+	margin-bottom: 60px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -69,10 +70,15 @@ p, label, a, input {
 
 .features {
 	margin: 40px 0;
+}
 
-	img {
+.img-100 {
 	width:100%;
 }
+
+.avi-overlay {
+	position:absolute;
+	top:0;
 }
 
 .details-item {
@@ -96,9 +102,11 @@ p, label, a, input {
 #footer {
 	background: #95A5A6;
 	color: #000;
-	margin-top: 75px;
+	position: absolute;
 	bottom: 0;
 	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 40px;
 	padding: 10px;
 
 	a {
@@ -139,3 +147,45 @@ p, label, a, input {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
   }
+
+
+/*conversations */
+
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.alert ul li {
+  list-style:none;
+}
+
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-alert {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+
+.alert-notice {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }

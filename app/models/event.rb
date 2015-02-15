@@ -1,5 +1,15 @@
 class Event < ActiveRecord::Base
 
+	validates :title, presence: true
+	validates :description, presence: true, uniqueness: true
+	validates :event_date, presence: true
+	validates :start_time, presence: true
+	validates :end_time, presence: true
+	validates :city, presence: true
+	validates :near, presence: true
+	validates :seats, presence: true
+
+
 	paginates_per 16
 
 	before_create :assign_slug
@@ -10,7 +20,7 @@ class Event < ActiveRecord::Base
 
 	validates_attachment_content_type :header_img, :content_type => /\Aimage\/.*\Z/
 
-	validates_with AttachmentSizeValidator, :attributes => :avatar, :less_than => 2.megabytes
+	validates_with AttachmentSizeValidator, :attributes => :header_img, :less_than => 2.megabytes
 
 	def assign_slug
       self.slug = title.parameterize

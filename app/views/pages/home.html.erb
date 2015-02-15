@@ -5,13 +5,13 @@
         <% if current_user %>
         <a data-toggle="modal" href="<%= dash_path %>" class="btn btn-lg btn-success" role="button">Become a host</a>
         <% else %>
-        <a data-toggle="modal" href="#myModal2" class="btn btn-lg btn-success" role="button">Become a host</a>
+        <a data-toggle="modal" href="#signup" class="btn btn-lg btn-success" role="button">Become a host</a>
         <% end %>
         <a href="#listings" class="btn btn-lg btn-info" role="button">Find a host</a>
       </div>
 
 	<h2 id="listings" class="text-center">It's happening in Toronto</h2>
-  <a data-toggle="modal" href="#myModal2" ><h4 class="text-center">Add your city? <i class="fa fa-smile-o"></i></h4></a>
+  <a data-toggle="modal" href="#signup" ><h4 class="text-center">Add your city? <i class="fa fa-smile-o"></i></h4></a>
 
   <div class="row">
 	<div class="col-sm-12">
@@ -19,8 +19,24 @@
             	<% @events.each do |event| %>
 
                 <div class="col-sm-4 features">
+
+                  <div>
                     <a href="<%= event_path(event) %>">
-                      <%= image_tag event.header_img.url(:thumb) %></a>
+        <%= image_tag event.header_img.url(:thumb), title: event.title, class:"img-100" %>
+                  </a>
+
+                  <div class="avi-overlay">
+
+      <% if event.user.avatar %>
+        <%= image_tag event.user.avatar, class: "media-object"  %>
+       <% else %>
+          <%= image_tag gravatar_image_url(event.user.email, size: 50, default: "identicon"), title: event.user.firstname %>
+      <% end %>
+
+                  </div>
+
+                </div>
+
                    <div class="space-feats">
                     <span>Seats: <%= event.seats %></span>
                     </div>

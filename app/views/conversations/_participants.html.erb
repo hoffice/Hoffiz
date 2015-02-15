@@ -1,0 +1,19 @@
+<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <% conversation.participants.each do |participant| %>
+  <% unless participant == current_user %>
+    <%#= avatar_for participant %>
+    	<% if participant.avatar %>
+    		<%= image_tag participant.avatar, title: participant.firstname %>
+     	 <% else %>
+      		<%= image_tag gravatar_image_url(participant.email, size: 50, default: "identicon"), title: participant.firstname %>
+     	<% end %>
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading"><%= participant.firstname %></h4>
+     <% end %>
+    <% end %>
+  </div>
+</div>

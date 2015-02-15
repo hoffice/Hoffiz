@@ -1,17 +1,18 @@
 
 <div class="container">
-<h1 style="margin: 30px 0;">Hello A,</h1>
+<h1 style="margin: 30px 0;">Hello <%= current_user.firstname %></h1>
 <div role="tabpanel">
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Host</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+    <li role="presentation" class="active"><a href="#host" aria-controls="host" role="tab" data-toggle="tab">Host</a></li>
+     <li role="presentation"><a href="#inbox" aria-controls="inbox" role="tab" data-toggle="tab">Inbox</a></li>
+    <li role="presentation"><a href="<%= edit_user_registration_path %>" aria-controls="profile" role="tab"> Change Profile</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
+    <div role="tabpanel" class="tab-pane active" id="host">
 
     	<div class="row">
     		<div class="col-sm-12">
@@ -57,12 +58,39 @@
     </table>
 
     </div>
-    <div role="tabpanel" class="tab-pane" id="profile">...</div>
-  </div>
+    <div role="tabpanel" class="tab-pane" id="inbox">
+
+
+      <% if @conversations.count > 0 %>
+
+      <h2>Your Conversations</h2>
+
+      <ul class="list-group">
+        <%= render partial: 'conversations/conversation', collection: @conversations %>
+    </ul>
+
+    <div class="row">
+      <a href="<%= conversations_path %>" class="btn btn-info more-listings">View all</a>
+    </div>
+
+    <% else %>
+
+    <h2>No Replies Yet :(</h2>
+
+    <% end %>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+
+      <%= link_to "Change your password", edit_user_registration_path %>
+
+
+    </div>
+
 
 </div>
 </div>
-
+</div>
 
 <div class="modal fade" id="myModal3">
   <div class="modal-dialog">

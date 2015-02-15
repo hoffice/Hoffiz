@@ -6,10 +6,25 @@ class ApplicationController < ActionController::Base
   before_filter :store_location
 
   def store_location
-  	session[:user_return_to] = request.fullpath unless (request.fullpath =~ /\/users/ || request.fullpath =~ /\/bookings/)
+  	session[:user_return_to] = request.fullpath unless (request.fullpath =~ /\/users/)
   end
 
   def after_sign_in_path_for(resource)
-  	session[:user_return_to] || root_path
+
+    if session[:user_return_to] =~ /\/e\//
+      session[:user_return_to]
+    else 
+      dash_path
+    end
   end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:warning] = 'Resource not found.'
+    redirect_back_or root_path
+  end
+ 
+  def redirect_back_or(path)
+    redirect_to request.referer || path
+  end
+
 end

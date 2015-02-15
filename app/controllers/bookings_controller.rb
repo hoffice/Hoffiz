@@ -8,6 +8,8 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.user_id = current_user.id
 
+    conversation = current_user.send_message(recipients, booking_params[:message][:body], booking_params[:message][:subject]).conversation
+
     respond_to do |format|
       if @booking.save
         format.html { redirect_to dash_path, notice: 'Request was successfully created.' }
@@ -40,6 +42,6 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params[:booking].permit(:event_id)
+      params[:booking].permit(:event_id, :message)
     end
 end

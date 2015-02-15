@@ -7,8 +7,24 @@
               <% @events.each do |event| %>
 
                 <div class="col-sm-3 features">
+
+                    <div>
                     <a href="<%= event_path(event) %>">
-                    <%= image_tag event.header_img.url(:thumb) %></a></a>
+        <%= image_tag event.header_img.url(:thumb), title: event.title, class:"img-100" %>
+                  </a>
+
+                  <div class="avi-overlay">
+
+      <% if event.user.avatar %>
+        <%= image_tag event.user.avatar, class: "media-object"  %>
+       <% else %>
+          <%= image_tag gravatar_image_url(event.user.email, size: 50, default: "identicon"), title: event.user.firstname %>
+      <% end %>
+
+                  </div>
+
+                </div>
+
                    <div class="space-feats">
                     <span>Seats: <%= event.seats %></span>
                     </div>
