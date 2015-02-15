@@ -58,9 +58,9 @@ class EventsController < ApplicationController
 
   def city
     @city = params[:city]
-    @events = Event.where("city  = ? AND live = ?", params[:city], true).page params[:page]
+    @events = Event.where(city: "Toronto", live: true).page params[:page]
 
-    if @events.count == 0
+    if !@events
       redirect_to root_path
     end
 
