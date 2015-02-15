@@ -26,7 +26,7 @@ class EventsController < ApplicationController
         format.html { redirect_to dash_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
-        format.html { render :new }
+        format.html { redirect_to dash_path, alert: 'Something went wrong. Post was not saved.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

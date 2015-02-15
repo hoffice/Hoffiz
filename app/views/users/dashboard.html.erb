@@ -137,7 +137,7 @@
 
                 <div class="field">
                   <%= f.label "Date" %><br />
-                  <input type="text" name="event[event_date]" data-provide='datepicker' >
+                  <input type="text" class="datepicker" name="event[event_date]" >
                 </div>
 
               </div>
@@ -212,8 +212,12 @@
 </div>
 
 
-
-
+<script>
+$('.datepicker').datepicker()
+.on('changeDate', function(ev){
+ $('.datepicker').datepicker('hide');
+ });
+</script>
 
 
 

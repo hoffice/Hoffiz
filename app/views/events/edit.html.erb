@@ -4,3 +4,10 @@
 
 <%= link_to 'Show', @event %> |
 <%= link_to 'Back', dash_path %>
+
+ <script>
+$('.datepicker').datepicker()
+.on('changeDate', function(ev){
+ $('.datepicker').datepicker('hide');
+ });
+ </script>
