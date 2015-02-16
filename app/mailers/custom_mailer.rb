@@ -1,4 +1,4 @@
-class Mailboxer::MessageMailer < Mailboxer::BaseMailer
+class CustomMailer < Mailboxer::BaseMailer
   #Sends and email for indicating a new message or a reply to a receiver.
   #It calls new_message_email if notifing a new message and reply_message_email
   #when indicating a reply to an already created conversation.
@@ -16,7 +16,7 @@ class Mailboxer::MessageMailer < Mailboxer::BaseMailer
     @receiver = receiver
     set_subject(message)
     mail :to => receiver.send(Mailboxer.email_method, message),
-         :subject => t('mailboxer.message_mailer.subject_new', :subject => @subject),
+         :subject => "New Message via Hoffiz",
          :template_name => 'new_message_email'
   end
 
@@ -26,7 +26,7 @@ class Mailboxer::MessageMailer < Mailboxer::BaseMailer
     @receiver = receiver
     set_subject(message)
     mail :to => receiver.send(Mailboxer.email_method, message),
-         :subject => t('mailboxer.message_mailer.subject_reply', :subject => @subject),
+         :subject => 'New Reply via Hoffiz',
          :template_name => 'reply_message_email'
   end
 end
