@@ -1,4 +1,6 @@
 <%= form_for(@event, :html => { :multipart => true }) do |f| %>
+
+<div class="row">
               <% if @event.errors.any? %>
                 <div id="error_explanation">
                   <h2><%= pluralize(@event.errors.count, "error") %> prohibited this space from being saved:</h2>
@@ -11,7 +13,7 @@
                 </div>
                 <% end %>
 
-                <div class="col-sm-7">
+                <div class="col-sm-5">
                 <div class="field">
                   <%= f.label :title %><br />
                   <%= f.text_field :title  %>
@@ -76,9 +78,21 @@
                 </div>
               </div>
 
-  <div class="actions">
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+
+
+  <div class="submit-div" style="margin: 20px 0;">
     <%= f.submit %>
   </div>
+
+</div>
+
+
+
+</div>
 
   <% end %>
 
