@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+
+  invisible_captcha only: [:create]
 # before_filter :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

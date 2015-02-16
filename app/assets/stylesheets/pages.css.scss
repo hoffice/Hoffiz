@@ -9,6 +9,7 @@ html {
 body {
 	border-top: 5px solid #4DAF7C;
 	margin-bottom: 60px;
+  width:100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -188,4 +189,10 @@ p, label, a, input {
     border-color: #d6e9c6;
     color: #468847;
     text-align: left;
+ }
+
+ .fb-like {
+  top:5px;
+  margin-left: 100%;
+  z-index: 1050;
  }

@@ -32,6 +32,7 @@ gem 'mailboxer', :git => 'git://github.com/div/mailboxer.git', :branch => 'rails
 gem 'gravatar_image_tag'
 gem 'pg'
 gem 'jquery-ui-rails'
+gem 'invisible_captcha'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

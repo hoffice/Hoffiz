@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  invisible_captcha only: [:create]
   before_action :authenticate_user!
  
   def new
