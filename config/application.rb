@@ -15,7 +15,6 @@ module Hoffiz
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
-
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
@@ -32,8 +31,8 @@ module Hoffiz
     :port      => 2525, # ports 587 and 2525 are also supported with STARTTLS
     :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => "hsquaredd@gmail.com",
-    :password  => "xyiSclXpdNEIc8zUvUJa6w", # SMTP password is any valid API key
-    :authentication => 'login', # Mandrill supports 'plain' or 'login'
+    :password  => Rails.application.secrets.mandrill_api_key,
+    :authentication => 'login'  # Mandrill supports 'plain' or 'login'
   }
   end
 end

@@ -18,7 +18,6 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-    @event.event_date = Date.strptime(event_params[:event_date], "%m/%d/%Y")
     @event.user_id = current_user.id
 
     respond_to do |format|

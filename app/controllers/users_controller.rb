@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
 	def dashboard	
 	  @event = Event.new
-	  @conversations = @mailbox.inbox.take(4)
+	  @conversations = @mailbox.conversations.take(4)
 	end
 
 	private

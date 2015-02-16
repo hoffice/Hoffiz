@@ -1,6 +1,8 @@
 
 <div class="container">
-<h1 style="margin: 30px 0;">Hello <%= current_user.firstname %></h1>
+<h1 style="margin: 30px 0;">Hello <%= current_user.firstname %>!</h1>
+
+
 <div role="tabpanel">
 
   <!-- Nav tabs -->
@@ -19,6 +21,8 @@
     	     <button data-toggle="modal" href="#myModal3" class="btn btn-primary" style="margin: 30px 0;">Create a post</button>
         </div>
     	</div>
+
+      <% if current_user.events.count > 0 %>
 
     	<table class="table table-hover">
       <thead>
@@ -57,6 +61,8 @@
       </tbody>
     </table>
 
+    <% end %>
+
     </div>
     <div role="tabpanel" class="tab-pane" id="inbox">
 
@@ -69,13 +75,17 @@
         <%= render partial: 'conversations/conversation', collection: @conversations %>
     </ul>
 
+    <% if @conversations.count > 3 %>
+
     <div class="row">
       <a href="<%= conversations_path %>" class="btn btn-info more-listings">View all</a>
     </div>
 
+    <% end %>
+
     <% else %>
 
-    <h2>No Replies Yet :(</h2>
+    <h2>No messages yet.</h2>
 
     <% end %>
 
@@ -99,9 +109,8 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h4 class="modal-title">Create a post</h4>
         </div>
+        <%= form_for(@event, :html => { :multipart => true }) do |f| %>
         <div class="modal-body">
-          <div class="row">
-            <%= form_for(@event, :html => { :multipart => true }) do |f| %>
               <% if @event.errors.any? %>
                 <div id="error_explanation">
                   <h2><%= pluralize(@event.errors.count, "error") %> prohibited this space from being saved:</h2>
@@ -114,10 +123,11 @@
                 </div>
                 <% end %>
 
+                <div class="row">
                 <div class="col-sm-7">
                 <div class="field">
                   <%= f.label :title %><br />
-                  <%= f.text_field :title, autofocus: true %>
+                  <%= f.text_field :title, autofocus: true  %>
                 </div>
 
                 <div class="field">
@@ -145,62 +155,42 @@
               <div class="col-sm-4 col-sm-offset-1">
                  <div class="field">
                   <%= f.label "Start Time" %><br />
-                <%= f.select :start_time, [ 
-     ["6am", 6], ["7am", 7], ["8am", 8], ["9am", 9], ["10am", 10], ["11am", 11], ["12pm", 12], ["1pm", 13], ["2pm", 14], ["3pm", 15], ["4pm", 16], ["5pm", 17], ["6pm", 18], ["7pm", 19], ["8pm", 20], ["9pm", 21], ["10pm", 22], ["11pm", 23], ["12am", 24], ["1am", 1], ["2am", 2], ["3am", 3], ["4am",4 ], ["5am", 5]
-], class:''%>
+                <%= f.time_select :start_time,  {ampm: true, minute_step: 15} %>  
 </div>
 
 <div class="field">
                   <%= f.label "End Time" %><br />
-                <%= f.select :end_time, [ 
-     ["6am", 6], ["7am", 7], ["8am", 8], ["9am", 9], ["10am", 10], ["11am", 11], ["12pm", 12], ["1pm", 13], ["2pm", 14], ["3pm", 15], ["4pm", 16], ["5pm", 17], ["6pm", 18], ["7pm", 19], ["8pm", 20], ["9pm", 21], ["10pm", 22], ["11pm", 23], ["12am", 24], ["1am", 1], ["2am", 2], ["3am", 3], ["4am",4 ], ["5am", 5]
-], class:''%>
+                <%= f.time_select :end_time,  {ampm: true, minute_step: 15} %>
 </div>
 
                 <div class="field">
                   <%= f.label "Select Space Type" %><br />
-                  <%= f.select(:space_type) do %>
-                   <% ['Apartment', 'House'].each do |c| -%>
-                   <%= content_tag(:option, c, value: c) %>
-                   <% end %>
-                   <% end %>
+                   <%= f.select :space_type, options_for_select(["Apartment", "House"], @event.space_type) %>
                 </div>
 
                 <div class="field">
                   <%= f.label "Select Seats Available" %><br />
-                  <%= f.select(:seats) do %>
-                   <% (1..10).each do |c| -%>
-                   <%= content_tag(:option, c, value: c) %>
-                   <% end %>
-                   <% end %>
+                  <%= f.select :seats, options_for_select((1..10).to_a, @event.seats) %>
                 </div>
 
                 <div class="field">
                   <%= f.label "Wifi Availability" %><br />
-                  <%= f.select(:wifi) do %>
-                   <% [['Yes', 1], ['No', 0] ].each do |c| -%>
-                   <%= content_tag(:option, c.first, value: c.last) %>
-                   <% end %>
-                   <% end %>
+                   <%= f.check_box :wifi? %>
                 </div>
 
                 <div class="field">
                   <%= f.label "Got Coffee? :) " %><br />
-                  <%= f.select(:coffee) do %>
-                   <% [['Yes', 1], ['No', 0] ].each do |c| -%>
-                   <%= content_tag(:option, c.first, value: c.last) %>
-                   <% end %>
-                   <% end %>
+                  <%= f.check_box :coffee? %>
                 </div>
 
                 <div class="field">
-                <%= f.label "Add Header Image" %><br />
+                <%= f.label "Change Header Image" %><br />
                 <%= f.file_field :header_img %>
                 </div>
               </div>
-
-        </div>
       </div>
+
+    </div>
         
         <div class="modal-footer">
           <a href="#" data-dismiss="modal" class="btn">Close</a>
@@ -211,13 +201,17 @@
     </div>
 </div>
 
-
 <script>
+$('.datepicker').datepicker({
+    format: 'yyyy/mm/dd',
+})
+
 $('.datepicker').datepicker()
 .on('changeDate', function(ev){
  $('.datepicker').datepicker('hide');
  });
 </script>
+
 
 
 

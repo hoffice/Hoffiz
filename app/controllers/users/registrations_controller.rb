@@ -11,12 +11,16 @@ before_filter :configure_account_update_params, only: [:update]
     # required for settings form to submit when password is left blank
 
     @user = User.find(current_user.id)
-    if @user.update_attributes(account_update_params)
-      set_flash_message :notice, :updated
-      # Sign in the user bypassing validation in case their password changed
-      sign_in @user, :bypass => true
-      redirect_to edit_user_registration_path 
-    else
+    unless @user.blank?
+      if update_resource(account_update_params)
+        set_flash_message :notice, :updated
+        # Sign in the user bypassing validation in case their password changed
+        sign_in @user, :bypass => true
+        redirect_to edit_user_registration_path 
+      else
+        render "edit"
+      end
+    else 
       render "edit"
     end
   end
@@ -65,6 +69,15 @@ before_filter :configure_account_update_params, only: [:update]
   #You can put the params you want to permit in the empty array.
   def configure_account_update_params
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :current_password, :firstname, :lastname, :facebook_url, :twitter_url, :linkedin_url) }
+  end
+
+  def update_resource(details)
+
+    if current_user.provider || (params[:user][:password].blank? && params[:user][:password_confirmation].blank?)
+      @user.update_without_password(details)
+    else
+      @user.update_with_password(details)
+    end
   end
 
   # The path used after sign up.
