@@ -24,9 +24,11 @@
         <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
          </li>
       <% else %>
-      <li>
-        <button data-toggle="modal" href="#signin" type="button" class="btn btn-default navbar-btn">Sign in</button>
-      </li>
+         <li class="hidden-xs"><button data-toggle="modal" href="#signin" type="button" class="btn btn-default navbar-btn">Sign in</button></li>
+     
+        <li class="visible-xs">
+          <%= link_to('Login', new_user_session_path) %>
+        </li>
       <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

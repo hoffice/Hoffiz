@@ -3,74 +3,76 @@
 
   <div class="row">
 
-  <div class="col-sm-4">
+    <div class="col-sm-4">
 
-  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-  <div class="field">
-    <%= f.label :firstname %><br />
-    <%= f.text_field :firstname %>
+    <div class="field">
+      <%= f.label :firstname %><br />
+      <%= f.text_field :firstname %>
+    </div>
+
+    <div class="field">
+      <%= f.label :lastname %><br />
+      <%= f.text_field :lastname %>
+    </div>
+
+    <h2>Share Social Links</h2>
+
+    <div class="field">
+      <%= f.label "Facebook" %><br />
+      <%= f.text_field :facebook_url %>
+    </div>
+
+    <div class="field">
+      <%= f.label "Linkedin" %><br />
+      <%= f.text_field :linkedin_url %>
+    </div>
+
+    <div class="field">
+      <%= f.label "Twitter" %><br />
+      <%= f.text_field :twitter_url %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
   </div>
-
-  <div class="field">
-    <%= f.label :lastname %><br />
-    <%= f.text_field :lastname %>
-  </div>
-
-  <h2>Share Social Links</h2>
-
-  <div class="field">
-    <%= f.label "Facebook" %><br />
-    <%= f.text_field :facebook_url %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Linkedin" %><br />
-    <%= f.text_field :linkedin_url %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Twitter" %><br />
-    <%= f.text_field :twitter_url %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
 
   <% if !current_user.provider %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="col-sm-4">
+
+    <h2>Changing Password</h2>
+    <h5><i>(leave blank if you don't want to change it)</i></h5>
+
+    <div class="field">
+      <%= f.label :password %> <br />
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password %><br />
+      <%= f.password_field :current_password, autocomplete: "off" %>
+    </div>
+
+    <h2>Change Email</h2>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
   </div>
 
-</div>
+    <% end %>
 
-<div class="col-sm-4">
-
-  <h2>Changing Password</h2>
-  <h5><i>(leave blank if you don't want to change it)</i></h5>
-
-  <div class="field">
-    <%= f.label :password %> <br />
-    <%= f.password_field :password, autocomplete: "off" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-</div>
-
-</div>
-  <% end %>
 
   <div class="actions">
     <%= f.submit "Update", class: "btn btn-primary" %>
