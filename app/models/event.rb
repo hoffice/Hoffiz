@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
 	paginates_per 16
 
 	before_save :assign_slug
-	before_save :lowercase_city
+	before_save :capitalize_city
 	belongs_to :user
 
 	has_attached_file :header_img, :styles => { :medium => "600x400>", :thumb => "450x300>" }, :default_url => "/images/:style/missing.png"
@@ -16,8 +16,8 @@ class Event < ActiveRecord::Base
       self.slug = self.title.parameterize
   	end
 
-  	def lowercase_city
-      self.city = self.city.downcase
+  	def capitalize_city
+      self.city = self.city.capitalize
   	end
 
   	def to_param

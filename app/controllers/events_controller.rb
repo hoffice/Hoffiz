@@ -56,7 +56,7 @@ class EventsController < ApplicationController
   end
 
   def city
-    @city = params[:city].downcase
+    @city = params[:city].capitalize
     @events = Event.where("city = ? AND live = ?", @city, true).page(params[:page])    
 
     if @events.empty?
