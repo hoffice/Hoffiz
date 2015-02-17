@@ -56,8 +56,8 @@ class EventsController < ApplicationController
   end
 
   def city
-    @city = params[:city]
-    @events = Event.where(city: @city, live: true).page params[:page]
+    @city = params[:city].downcase
+    @events = Event.where("city = ? AND live = ?", @city, true).page(params[:page])    
 
     if @events.empty?
       redirect_to root_path
@@ -76,6 +76,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :event_date, :start_time, :end_time, :space_type, :near, :city, :coffee, :wifi, :header_img, :seats, :live )
+      params.require(:event).permit(:title, :description, :event_date, :start_time, :end_time, :space_type, :near, :coffee, :wifi, :header_img, :seats, :live, :city )
     end
 end
